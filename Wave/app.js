@@ -1,4 +1,5 @@
-import { Wave } from './wave.js';
+// import { Wave } from './wave.js';
+import { WaveGroup } from './wavegroup.js';
 
 class App {
     constructor() {
@@ -11,6 +12,8 @@ class App {
         /* 현재 html 문서 body에 캔버스 엘리먼트 추가 */
         document.body.appendChild(this.canvas);
 
+        this.waveGroup = new WaveGroup();
+
         /* 사이즈 변할 때 대응하는 리스너 */
         window.addEventListener('resize', this.resize.bind(this), {
             once: false,
@@ -19,7 +22,7 @@ class App {
         });
 
         /* Wave 객체 생성 */
-        this.wave = new Wave();
+        // this.wave = new Wave();
 
         /* 초기 사이즈를 기준으로 resize 함수 실행 */
         this.resize();
@@ -43,7 +46,7 @@ class App {
         this.ctx.scale(2, 2);
 
         /* 웨이브에 리사이즈 적용 */
-        this.wave.resize(this.stageWidth, this.stageHeight);
+        this.waveGroup.resize(this.stageWidth, this.stageHeight);
     }
 
     /* 애니메이션 관련 루틴 정의 */
@@ -53,7 +56,7 @@ class App {
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
         /* 애니메이션이 실행되면 웨이브가 그려지도록 설정 */
-        this.wave.draw(this.ctx);
+        this.waveGroup.draw(this.ctx);
 
         /* this를 바인드한 채로 애니메이션 프레임 요청 */
         requestAnimationFrame(this.animate.bind(this));
